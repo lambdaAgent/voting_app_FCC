@@ -1,3 +1,8 @@
+    <div class="row">
+        <div ng-include="'views/alert.html'"></div>
+    </div>
+    <br/>
+    
 <div class="container">
 <form name="register" class="form-signin" validate>
     <h1 class="form-signin-heading text-muted">Register</h1>
@@ -9,15 +14,6 @@
     <p class="help-block" ng-show="register.password_confirm.$dirty && register.password_confirm.$invalid">please match the passwords.</p>
     <button ng-disabled="register.$invalid" ng-click="submit()"class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
 </form>
-
-
-
-
-
-
-
-
-
 
 
 </div>

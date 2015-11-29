@@ -7,13 +7,17 @@
 	  <div class="row">
 	  	<div class="btn-group" role="group">
 		  <button type="button" class="btn btn-primary" ng-click="whichView='addPoll'">New Poll</button>
-		  <button type="button" class="btn btn-success" ng-click="whichView='getPolls'; getPolls()">My Polls</button>
+		  <button type="button" class="btn btn-success" ng-click="whichView='getMyPolls'; getMyPolls();">My Polls</button>
 		</div>
 	 </div>
 	</div>
 
+    <div class="row">
+        <div ng-include="'views/alert.html'"></div>
+    </div>
+    <br/>
 	<div class="container" >
-	<!-- addPoll VIEW -->
+		<!-- addPoll VIEW -->
 		<div ng-show="whichView==='addPoll'" class="animate-if">
 	      <form class="">
 	        <h2 class="form-signin-heading">New Poll</h2>
@@ -30,15 +34,14 @@
 	        <button class="btn btn-lg btn-primary btn-block" ng-click="submitPolls()">Submit</button>
 	      </form>
 		</div>
-
 		<!-- getPolls VIEW -->
-		<div ng-show="whichView==='getPolls'" class="animate-if">
+		<div ng-show="whichView==='getMyPolls'" class="animate-if">
 		<div ng-repeat="vote in votes" class="col-md-12" >
 			<div class="form-inline well" style="cursor:pointer;" 
-			     ng-click="getOne(vote._id);">
+			     ng-click="getOne(vote._id);"><!--getOne -->
 			<div class="form-group" >
-				<p class="navbar-text">{{vote.VoteTitle}} </p>
-				<p class="sr-only">
+				<p class="navbar-text">{{vote.voteTitle}} </p>
+				<p class="sr-only"></p>
 			</div>
 			<div class="form-group" style="float:right;">
 				<button class="btn-lg btn-danger" ng-click="delete(vote._id)">Delete</button>
@@ -48,29 +51,23 @@
 		</div>
 
 		<!-- getOnePoll VIEW -->
-			<div ng-show="whichView==='getOnePoll'" class="animate-if" rel="right-view">
-				<h2 class="">{{oneVote.VoteTitle}}</h2>
-				<div class="row" ng-repeat="voteChoice in oneVote.VoteChoices" >
-					<div class="col-md-10" >
-						<div class="progress">
-						  <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-						    {{voteChoice.voteName}} : {{voteChoice.vote}}
-						  </div>
-						</div>
-					</div>
-					<div class="col-md-1">
-						<div class=" value">
-							<label class="">
-							{{voteChoice.votePercentage}}%</label>
-						</div>		
-					</div>
-					<div class="col-md-1">
-						<button class="btn-sm btn-success" style="width: 50px; height:20px;line-height:5px;" ng-click="plusOne(oneVote._id, voteChoice._id)"> &plus;</button>		
+		<div ng-show="whichView==='getOnePoll'" class="animate-if" rel="right-view">
+			<h2 class="">{{oneVote.voteTitle}}</h2>
+			<div class="row" ng-repeat="voteChoice in oneVote.voteChoices" >
+				<div class="col-md-10" >
+					<div class="progress">
+					  <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+					    {{voteChoice.voteName}} : {{voteChoice.vote}}
+					  </div>
 					</div>
 				</div>
-				<h4>Total Votes: {{totalVotes}}</h4>
+				<div class="col-md-1">
+					<div class=" value">
+						<label class="">
+						{{voteChoice.votePercentage}}%</label>
+					</div>		
+				</div>
 			</div>
+			<h4>Total Votes: {{totalVotes}}</h4>
 		</div>
-		</div>
-	</div>
 </div>

@@ -124,11 +124,11 @@ body {
     border-left-style: solid;
 }
 .main-alert {
-	position:absolute;
+	/*position:absolute;
 	top: 70px;
 	left: 5px;
-	right: 5px;
-    max-width: 400px;
+	right: 5px;*/
+    max-width: 600px;
     margin: 0 auto;
 }
 .alert-hidden {

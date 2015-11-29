@@ -2,25 +2,28 @@
 
 angular.module('psJwtApp')
 	.controller('VotesCtrl', function ($scope, $http, API_URL, alert, authToken) {
-		$scope.getPolls = function(){
-			$http.get(API_URL + "/votes").success(function(data){
-				$scope.votes = data;
-				alert("success", "successfully get Polls");
-			}).error(function(err){
-				alert('danger', 'Sorry', err.message + '!');
-			});
+		$scope.getMyPolls = function(){
+			var user_slug = authToken.getSlug();
+			$http.get(API_URL + "/user/" + user_slug + "/votes")
+			 .success(function(votes){
+			 	$scope.votes = votes;
+			 })
+			 .error(function(err){
+				alert('danger', 'Sorry',  err.message + '!');
+			 })
 		};
 		$scope.getOne = function(id){
 			$scope.whichView = 'getOnePoll';
 			$http.get(API_URL+"/vote/" + id).success(function(data) {
 				$scope.oneVote = data;
-				$scope.totalVotes = data.VoteChoices.map(function(item){
+				$scope.totalVotes = data.voteChoices.map(function(item){
 					return item.vote;
 				}).reduce(function(prev,next){
 					return prev + next;
 				});
-				data.VoteChoices.map(function(item){
-					item.votePercentage = ($scope.totalVotes > 0) ? (item.vote/$scope.totalVotes).toFixed(2) * 100 : 0
+				data.voteChoices.map(function(item){
+					var result = ($scope.totalVotes > 0) ? (item.vote/$scope.totalVotes).toFixed(2) * 100 : 0
+					item.votePercentage = result.toFixed(2);
 				});
 			}).error(function(err){
 				alert('danger', 'Sorry',  err.message + '!');
@@ -34,6 +37,7 @@ angular.module('psJwtApp')
 			i++;
 		};
 		$scope.delete = function(id) {
+			$scope.whichView = 'getMyPolls';
 			$http.delete(API_URL+"/vote/"+id).success(function(data){
 				console.log(data);
 				$scope.getPolls();
@@ -43,7 +47,7 @@ angular.module('psJwtApp')
 		};
 
 		$scope.submitPolls = function(){
-			var VoteTitle = angular.element(document.getElementById("poll_name"));
+			var voteTitle = angular.element(document.getElementById("poll_name"));
 			var options = angular.element(document.getElementById("options-field")).children();
 			var voteArr = [];
 			for(var i=0; i<options.length; i++){
@@ -55,34 +59,23 @@ angular.module('psJwtApp')
 				voteArr.push(sample);
 			};
 			if (voteArr.length < 2){
-				console.log("Please fill");
 				alert("warning", "Sorry", "Please fill at least two options");
 				return;
 			}
 			var polls = {
-				VoteTitle: VoteTitle[0].value,
-				VoteChoices: voteArr
+				voteTitle: voteTitle[0].value,
+				voteChoices: voteArr
 			};
 
-
-			$http.post(API_URL+"/vote", polls).success(function(data){
+			var user_slug = authToken.getSlug();
+			$http.post(API_URL+"/vote/user/" + user_slug, polls).success(function(data){
 				console.log(data);
-				VoteTitle[0].value = "";
+				voteTitle[0].value = "";
 				for(var i=0; i<options.length; i++){
 					options[i].value = "";
 				}
 			}).error(function(err){
 				alert('danger', 'Sorry',  err.message + '!');
 			})
-		};
-
-
-		$scope.plusOne = function(vote_id, eachOptions_id){
-			$http.put(API_URL+"/vote/" + vote_id + "/options/" + eachOptions_id)
-			  .success(function(data){
-			  		$scope.getOne(vote_id);
-			  }).error(function(err){
-				alert('danger', 'Sorry',  err.message + '!');
-			});
 		};
 	});

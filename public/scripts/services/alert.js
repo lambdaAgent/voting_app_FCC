@@ -26,7 +26,7 @@ angular.module('psJwtApp').service('alert', function alert($rootScope, $timeout)
         $timeout.cancel(alertTimeout);
         alertTimeout = $timeout(function() {
             $rootScope.alert.show = false;
-        }, 10000);
+        }, timeout || 4000);
     }
 
 

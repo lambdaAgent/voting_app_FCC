@@ -1,13 +1,14 @@
 var mongoose = require("mongoose");
 
 var voteSchema = mongoose.Schema({
-	VoteTitle: {type: String, required: true},
-	VoteChoices : [
+	voteTitle: {type: String, required: true},
+	voteChoices : [
 		{
 			voteName: {type:String, required: true},
 			vote: Number
 		}
 	],
+	user: { type: mongoose.Schema.Types.ObjectId, ref:"User" },
 	created_at: {type: Date, default: Date.now}
 });
 var Vote = mongoose.model("Vote", voteSchema);

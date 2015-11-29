@@ -1,13 +1,61 @@
-<div ng-controller="HeaderCtrl" class="jumbotron">
-  <h1>VotePlex</h1>
-  <p class="lead">
-    Create custom polls with live results.  </p>
-    
-    <div ng-hide="isAuthenticated()">
-	     <p class="lead" style="color: white">Signup or login now to create polls.</p>
-	    <div class="btn-group" role="group">
-			<a type="button" class="btn btn-success" ui-sref="login">login</a>
+<div ng-controller="HeaderCtrl" ng-init="whichView='getPolls'">
+	<div class="jumbotron">
+	  <h1>VotePlex</h1>
+	  <p class="lead">
+	    Create custom polls with live results.  </p>
+	    
+	    <div>
+		     <p class="lead" style="color: white">Signup or login now to create polls.</p>
+		    <div class="btn-group" role="group">
+				<a type="button" class="btn btn-success" ng-click="getPolls(); whichView='getPolls'">polls</a>
+		    </div>
 	    </div>
+	</div>
+    <div class="row">
+        <div ng-include="'views/alert.html'"></div>
     </div>
-	 </div>
+    <br/>
+
+	<div class="container">
+		<!-- getPolls VIEW -->
+		<div ng-init="whichView='getPolls'" ng-show="whichView==='getPolls'" class="animate-if">
+		<div ng-repeat="vote in allVotes" class="col-md-12" >
+			<div class="form-inline well" style="cursor:pointer;" 
+			     ng-click="getOne(vote._id);">
+			<div class="form-group" >
+				<p class="navbar-text">{{vote.voteTitle}} </p>
+			</div>
+			<button class="pull-right btn btn-success">vote now</button>
+
+			<!-- <div class="form-group" style="float:right;">
+				<button class="btn-lg btn-danger" ng-click="delete(vote._id)">Delete</button>
+			</div> -->
+			</div>
+		</div>
+		</div>
+
+		<!-- getOnePoll VIEW -->
+		<div ng-show="whichView==='getOnePoll'" class="animate-if" rel="right-view">
+			<h2 class="">{{oneVote.voteTitle}}</h2>
+			<div class="row" ng-repeat="voteChoice in oneVote.voteChoices" >
+				<div class="col-md-10" >
+					<div class="progress">
+					  <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+					    {{voteChoice.voteName}} : {{voteChoice.vote}}
+					  </div>
+					</div>
+				</div>
+				<div class="col-md-1">
+					<div class=" value">
+						<label class="">
+						{{voteChoice.votePercentage}}%</label>
+					</div>		
+				</div>
+				<div class="col-md-1">
+					<button class="btn-sm btn-success" style="width: 50px; height:20px;line-height:5px;" ng-click="plusOne(oneVote._id, voteChoice._id)"> &plus;</button>		
+				</div>
+			</div>
+			<h4>Total Votes: {{totalVotes}}</h4>
+		</div>
+	</div>
 </div>
