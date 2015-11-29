@@ -14,7 +14,7 @@ angular.module('psJwtApp').controller('LoginCtrl',
 		    	authToken.setSlug(res.user_slug);
 				$state.go('main');
 		    }).error(function(err){
-		    	alert("danger", "message", err)
+		    	alert("danger", "message", err.message)
 		    })
 
 	}

@@ -1,9 +1,9 @@
 <div ng-controller="HeaderCtrl" class="header">
 	<ul class="nav nav-pills pull-right">
-		<li ng-hide="isAuthenticated()" ui-sref-active="active">
+		<li ng-show="isAuthenticated()" ui-sref-active="active">
 			<a ui-sref="setting">Setting</a>
 		</li>
-		<li ng-hide="isAuthenticated()" ui-sref-active="active">
+		<li ng-show="isAuthenticated()" ui-sref-active="active">
 			<a ui-sref="vote">Votes</a>
 		</li>
 		<li ng-hide="isAuthenticated()" ui-sref-active="active">

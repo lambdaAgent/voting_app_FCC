@@ -18,7 +18,7 @@ angular.module('psJwtApp').controller('RegisterCtrl',
 			    $state.go('main');
 		     })
 		     .error(function(err){
-		     	alert("danger", "error", err);
+		     	alert("danger", "error", err.message);
 		     });
 	};
 });
