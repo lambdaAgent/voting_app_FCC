@@ -1,11 +1,11 @@
 var mongoose = require('mongoose');
 var gracefulShutdown;
 var dbURI;
-if(process.env.NODE_ENV === "development"){
-	dbURI = "mongodb://localhost:27017/signup_fcc";
-} else {
+// if(process.env.NODE_ENV === "development"){
+// 	dbURI = "mongodb://localhost:27017/signup_fcc";
+// } else {
 	dbURI = "mongodb://vd:vd1234@ds057944.mongolab.com:57944/signup_fcc";
-}
+//}
   mongoose.connect(dbURI);
 
 
