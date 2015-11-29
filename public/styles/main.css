@@ -168,3 +168,11 @@ body {
 [ui-view].ng-leave-active {
     opacity: 0;
 }
+
+.value{
+    height: 20px;
+    margin-bottom: 20px;
+    background-color: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}

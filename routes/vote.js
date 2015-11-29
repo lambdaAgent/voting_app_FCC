@@ -51,7 +51,33 @@ router.delete("/vote/:id", function(req,res){
 		});
     });
 });
+router.put("/vote/:vote_id/options/:eachOptions_id", function(req, res){
+	var eachOptions_id = mongoose.Types.ObjectId(req.params.eachOptions_id)
+	console.log(eachOptions_id);
+	helper.authenticateJWT(req,res, function(err){
+		var vote_obj = {
+			VoteTitle: req.body.VoteTitle,
+			VoteChoices: req.body.VoteChoices
+		};
+		Vote.getById(req.params.vote_id, function(err, each_vote){
+			if(err) return res.status(401).send(err);	
+			var newVoteChoices_arr = each_vote.VoteChoices.map(function(item){
+				if(item._id == req.params.eachOptions_id){
+					item.vote++;
+				}
+				return item;
+			});
 
+			console.log(newVoteChoices_arr);
+			Vote.update(req.params.vote_id, {
+				$set: { VoteChoices: newVoteChoices_arr}
+			}, {}, function(err, data){
+			   if(err) return res.status(401).send(err);	
+		       return res.status(200).send("successfully added vote");
+			})
+		});
+    });
+});
 
 module.exports = router;
 

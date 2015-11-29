@@ -1,6 +1,13 @@
-<div class="jumbotron">
+<div ng-controller="HeaderCtrl" class="jumbotron">
   <h1>VotePlex</h1>
   <p class="lead">
     Create custom polls with live results.  </p>
+    
+    <div ng-hide="isAuthenticated()">
+	     <p class="lead" style="color: white">Signup or login now to create polls.</p>
+	    <div class="btn-group" role="group">
+			<a type="button" class="btn btn-success" ui-sref="login">login</a>
+	    </div>
+    </div>
+	 </div>
 </div>
-

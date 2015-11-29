@@ -5,19 +5,27 @@ angular.module('psJwtApp')
 		$scope.getPolls = function(){
 			$http.get(API_URL + "/votes").success(function(data){
 				$scope.votes = data;
-				console.log(data);
 				alert("success", "successfully get Polls");
 			}).error(function(err){
 				alert('danger', 'Sorry', err.message + '!');
 			});
 		};
 		$scope.getOne = function(id){
+			$scope.whichView = 'getOnePoll';
 			$http.get(API_URL+"/vote/" + id).success(function(data) {
-				console.log(data);
+				$scope.oneVote = data;
+				$scope.totalVotes = data.VoteChoices.map(function(item){
+					return item.vote;
+				}).reduce(function(prev,next){
+					return prev + next;
+				});
+				data.VoteChoices.map(function(item){
+					item.votePercentage = ($scope.totalVotes > 0) ? (item.vote/$scope.totalVotes).toFixed(2) * 100 : 0
+				});
 			}).error(function(err){
 				alert('danger', 'Sorry',  err.message + '!');
 			})
-		}
+		};
 		$scope.moreOptions = function() {
 			var options = angular.element(document.getElementById("options-field"));
 			var list = '<input type="text" id="options1" class="form-control" placeholder="next options" ng-model="options'+ i + '">';
@@ -66,5 +74,15 @@ angular.module('psJwtApp')
 			}).error(function(err){
 				alert('danger', 'Sorry',  err.message + '!');
 			})
-		}
+		};
+
+
+		$scope.plusOne = function(vote_id, eachOptions_id){
+			$http.put(API_URL+"/vote/" + vote_id + "/options/" + eachOptions_id)
+			  .success(function(data){
+			  		$scope.getOne(vote_id);
+			  }).error(function(err){
+				alert('danger', 'Sorry',  err.message + '!');
+			});
+		};
 	});
