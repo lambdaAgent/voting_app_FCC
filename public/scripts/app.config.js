@@ -54,7 +54,7 @@ angular.module('psJwtApp').config(
 })
 
 //.constant('API_URL', 'http://localhost:3000')
-.constant('API_URL', 'https://vda-voting-app.herokuapp.com');
+.constant('API_URL', 'https://vda-voting-app.herokuapp.com')
 .run(function ($window) {
 	var params = $window.location.search.substring(1);
 	if (params && $window.opener && $window.opener.location.origin === $window.location.origin) {
