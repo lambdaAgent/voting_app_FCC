@@ -17,7 +17,7 @@ app.use(function (req, res, next) {
   next();
 });
 // view engine setup
-hbs.registerPartials(path.join(__dirname, "views/partials"));
+hbs.registerPartials(path.join(__dirname, "/views/partials"));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
