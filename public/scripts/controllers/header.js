@@ -39,15 +39,11 @@ angular.module('psJwtApp')
 			var user_vote;
 			var isVoted = false;
 			if(cachedVoted){
-				console.log("cachedVoted " +cachedVoted);
 				user_vote = cachedVoted.split(' ');
 				user_vote.map(function(item){
-					console.log("item " + item);
-					console.log("vote_id " + vote_id);
 					if(item === vote_id){ isVoted = true; }
 				});
 			} 
-			console.log("isVoted " + isVoted);
 			if(isVoted) {
 				return alert('danger', 'You have already voted for this poll!');
 			}
