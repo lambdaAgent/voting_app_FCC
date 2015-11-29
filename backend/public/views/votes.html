@@ -1,0 +1,49 @@
+<div ng-model="leftView" ng-init="leftView=true">
+	<div class="jumbotron">
+	  <h1>Make A Vote</h1>
+	  <p class="lead">
+	     Let's give people something to choose for
+	  </p>
+	  <div class="row">
+	  	<div class="btn-group" role="group">
+		  <button type="button" class="btn btn-primary" ng-click="leftView=true">New Poll</button>
+		  <button type="button" class="btn btn-secondary" ng-click="leftView=false; getPolls()">My Polls</button>
+		</div>
+	 </div>
+	</div>
+
+	<div class="container" >
+	<!-- LEFT VIEW -->
+		<div ng-if="leftView" class="animate-if">
+	      <form class="">
+	        <h2 class="form-signin-heading">New Poll</h2>
+	        <label for="inputName" class="">Name your Poll</label>
+	        <input type="text"  id="poll_name" class="form-control" placeholder="What is your favorite drink?">
+	        
+	        <label for="options1" class="">Options</label>
+	        <div class="" id="options-field">
+		        <input type="text" id="options1" class="form-control" placeholder="coke" ng-model="options1">
+		         <input type="text" id="options2" class="form-control" placeholder="pepsi" ng-model="options2">
+	         </div>
+	         <br/>
+	      	<button class="btn btn-md btn-default btn-block" ng-click="moreOptions();" id="more-options" >More Options</button>
+	        <button class="btn btn-lg btn-primary btn-block" ng-click="submitPolls()">Submit</button>
+	      </form>
+		</div>
+
+		<!-- RIGHT VIEW -->
+		<div ng-if="!leftView" class="animate-if" rel="right-view">
+		<div ng-repeat="vote in votes" class="col-md-12">
+			<div class="form-inline well" style="cursor:pointer;" ng-click="getOne(vote._id)">
+			<div class="form-group" >
+				<p class="navbar-text">{{vote.VoteTitle}} </p>
+				<p class="sr-only">
+			</div>
+			<div class="form-group" style="float:right;">
+				<button class="btn-lg btn-danger" ng-click="delete(vote._id)">Delete</button>
+			</div>
+			</div>
+		</div>
+		</div>
+	</div>
+</div>

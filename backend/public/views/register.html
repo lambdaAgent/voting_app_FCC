@@ -1,0 +1,23 @@
+<div class="container">
+<form name="register" class="form-signin" validate>
+    <h1 class="form-signin-heading text-muted">Register</h1>
+    <input name="name" ng-model="name" type="name" class="form-control" placeholder="name" required>
+    <input name="email" ng-model="email" type="email" class="form-control" placeholder="Email address" required>
+    <p class="help-block" ng-show="register.email.$dirty && register.email.$invalid">Please enter a proper email.</p>
+    <input name="password" ng-model="password" type="password" class="form-control" placeholder="Password" required>
+    <input name="password_confirm" ng-model="password_confirm" type="password" class="form-control" placeholder="Confirm Password" validate-equals='password'>
+    <p class="help-block" ng-show="register.password_confirm.$dirty && register.password_confirm.$invalid">please match the passwords.</p>
+    <button ng-disabled="register.$invalid" ng-click="submit()"class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+</div>
