@@ -7,7 +7,7 @@
 	    <div>
 		     <p class="lead" style="color: white">Signup or login now to create polls.</p>
 		    <div class="btn-group" role="group">
-				<a type="button" class="btn btn-success" ng-click="getPolls(); whichView='getPolls'">polls</a>
+				<a type="button" class="btn btn-success" ng-click="getPolls(); whichView='getPolls'">show polls</a>
 		    </div>
 	    </div>
 	</div>
@@ -18,7 +18,7 @@
 
 	<div class="container">
 		<!-- getPolls VIEW -->
-		<div ng-init="whichView='getPolls'" ng-show="whichView==='getPolls'" class="animate-if">
+		<div ng-show="whichView==='getPolls'" class="animate-if">
 		<div ng-repeat="vote in allVotes" class="col-md-12" >
 			<div class="form-inline well" style="cursor:pointer;" 
 			     ng-click="getOne(vote._id);">
