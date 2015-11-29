@@ -49,7 +49,7 @@ angular.module('psJwtApp')
 			} 
 			console.log("isVoted " + isVoted);
 			if(isVoted) {
-				return alert('danger', 'You have already voted!');
+				return alert('danger', 'You have already voted for this poll!');
 			}
 			$http.put(API_URL+"/vote/" + vote_id + "/options/" + eachOptions_id)
 			  .success(function(data){
