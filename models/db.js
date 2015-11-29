@@ -4,7 +4,7 @@ var dbURI;
  if(process.env.NODE_ENV === "development"){
  	dbURI = "mongodb://localhost:27017/signup_fcc";
 } else {
-	dbURI = "mongodb://vd:vd1234@ds059694.mongolab.com:59694/voteapp_fcc";
+	dbURI = process.env.MONGOLAB_URI;
 }
   mongoose.connect(dbURI);
 
