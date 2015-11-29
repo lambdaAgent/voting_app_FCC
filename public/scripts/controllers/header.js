@@ -45,21 +45,20 @@ angular.module('psJwtApp')
 					console.log("item " + item);
 					console.log("vote_id " + vote_id);
 					if(item === vote_id){ isVoted = true; }
-					else { isVoted = false; }
 				});
-			} else {
-				console.log("isVoted " + isVoted);
-				if(isVoted) {
-					return alert('danger', 'You have already voted!');
-				}
-				$http.put(API_URL+"/vote/" + vote_id + "/options/" + eachOptions_id)
-				  .success(function(data){
-				  		authToken.setVoted(vote_id);
-				  		$scope.getOne(vote_id);
-				  }).error(function(err){
-					alert('danger', 'Sorry',  err.message + '!');
-				});
-			}			
+			} 
+			console.log("isVoted " + isVoted);
+			if(isVoted) {
+				return alert('danger', 'You have already voted!');
+			}
+			$http.put(API_URL+"/vote/" + vote_id + "/options/" + eachOptions_id)
+			  .success(function(data){
+			  		authToken.setVoted(vote_id);
+			  		$scope.getOne(vote_id);
+			  }).error(function(err){
+				alert('danger', 'Sorry',  err.message + '!');
+			});
+					
 		};
 	});
 
