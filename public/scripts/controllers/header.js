@@ -35,27 +35,27 @@ angular.module('psJwtApp')
 			})
 		};
 		$scope.plusOne = function(vote_id, eachOptions_id){
-			var user_vote = authToken.getVoted().split(' ');
-			var isVoted;
-			console.log("user_vote " + user_vote);
-			console.log("vote_id " + vote_id);
-			user_vote.map(function(item){
-				console.log("item " +item);
-				if(item === vote_id){
-					isVoted = true;
+			var cachedVoted = authToken.getVoted();
+			var user_vote;
+			var isVoted = false;
+			if(cachedVoted){
+				user_vote = cachedVoted.split(' ');
+				user_vote.map(function(item){
+					if(item === vote_id) isVoted = true;
+				});
+			} else {
+				if(isVoted) {
+					return alert('danger', 'You have already voted!');
 				}
-			});
-			if(isVoted) {
-				return alert('danger', 'You have already voted!');
-			}
-			$http.put(API_URL+"/vote/" + vote_id + "/options/" + eachOptions_id)
-			  .success(function(data){
-			  		authToken.setVoted(vote_id);
-  					console.log(authToken.getVoted());
-			  		$scope.getOne(vote_id);
-			  }).error(function(err){
-				alert('danger', 'Sorry',  err.message + '!');
-			});
+				$http.put(API_URL+"/vote/" + vote_id + "/options/" + eachOptions_id)
+				  .success(function(data){
+				  		authToken.setVoted(vote_id);
+	  					console.log(authToken.getVoted());
+				  		$scope.getOne(vote_id);
+				  }).error(function(err){
+					alert('danger', 'Sorry',  err.message + '!');
+				});
+			}			
 		};
 	});
 
