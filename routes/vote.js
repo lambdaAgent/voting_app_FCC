@@ -28,7 +28,7 @@ router.get("/vote/:id", function(req, res){
 
 //get all votes by the user only
 router.get("/user/:user_slug/votes", function(req, res){
-	var slug = JSON.stringify({slug: req.params.user_slug})
+	var slug = {"slug": req.params.user_slug};
 	//get the vote number too.
 	helper.authenticateJWT(req,res, function(err){
 		if (err)  return res.status(404).send(err); 
@@ -49,7 +49,7 @@ router.post("/vote/user/:user_slug", function(req, res){
 			voteTitle: req.body.voteTitle,
 			voteChoices: req.body.voteChoices,
 		};
-		var slug = JSON.stringify({slug: req.params.user_slug});
+	var slug = {"slug": req.params.user_slug};
 		User.findOne(slug, function(err, user){
 			vote_obj.user = mongoose.Types.ObjectId(user._id);
 		});

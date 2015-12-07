@@ -58,7 +58,7 @@ router.post("/changePassword", function(req, res, next){
 	}
 	helper.authenticateJWT(req, res, function(err){
 		if (err) { return res.status(404).send(err); }
-		var slug = JSON.stringify({slug: req.body.user_slug})
+		var slug = {"slug": req.body.user_slug};
 		User.findOne( slug, function(err, user) {
 			if (err) { return res.status(404).send(err); }
 			User.verifyPassword(req.body.currentPassword, user.password, function(err, isMatch){
